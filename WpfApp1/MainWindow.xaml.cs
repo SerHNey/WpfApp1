@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Threading;
+
 
 namespace WpfApp1
 {
@@ -21,185 +24,83 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         Random randomizer = new Random();
-        private int _numValue_1 = 0;
-        private int _numValue_2 = 0;
-        private int _numValue_3 = 0;
-        private int _numValue_4 = 0;
-        private int added1;
-        private int added2;
+        double result_pll = 0;
+        double result_minn = 0;
+        double result_ymnn = 0;
+        double result_dell = 0;
 
-        private int minuend1;
-        private int minuend2;
-
-        private int multi1;
-        private int multi2;
-
-
-        private int delen1;
-        private int delen2;
-
-
+        private int time = 30;
+        DispatcherTimer timer = new DispatcherTimer();
+        bool ok_answer = false;
         public MainWindow()
         {
             InitializeComponent();
-            StartTheQuiz();
-            start.IsEnabled = false;
+           // StartTheQuiz();
+           // start.IsEnabled = false;
 
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = new TimeSpan(0, 0, 1);
+
+        }
+
+
+        private bool CheckTheAnswer()
+        {
+
+
+
+            return false;
         }
         public void StartTheQuiz()
         {
-            txtNum_1.Text = _numValue_1.ToString();
-            txtNum_2.Text = _numValue_2.ToString();
-            txtNum_3.Text = _numValue_3.ToString();
-            txtNum_4.Text = _numValue_4.ToString();
-
-            added1 = randomizer.Next(51);
-            added2 = randomizer.Next(51);
-            plusleftlabel.Content = added1.ToString();
-            plusrightlabel.Content = added2.ToString();
-
-            minuend1 = randomizer.Next(51);
-            minuend2 = randomizer.Next(51);
-            munleftlabel.Content = minuend1.ToString();
-            munrightlabel.Content = minuend2.ToString();
-
-            multi1 = randomizer.Next(51);
-            multi2 = randomizer.Next(51);
-            ymnleftlabel.Content = multi1.ToString();
-            ymnrightlabel.Content = multi2.ToString();
-
-            delen1 = randomizer.Next(51);
-            delen2 = randomizer.Next(51);
-            delenleftlabel.Content = delen1.ToString();
-            delenrightlabel.Content = delen2.ToString();
-    
-
+           
         }
-        public int NumValue_1
-        {
-            get { return _numValue_1; }
-            set
-            {
-                _numValue_1 = value;
-                txtNum_1.Text = value.ToString();
-            }
-        }
-        public int NumValue_2
-        {
-            get { return _numValue_2; }
-            set
-            {
-                _numValue_2 = value;
-                txtNum_2.Text = value.ToString();
-            }
-        }
-        public int NumValue_3
-        {
-            get { return _numValue_3; }
-            set
-            {
-                _numValue_3 = value;
-                txtNum_3.Text = value.ToString();
-            }
-        }
-        public int NumValue_4
-        {
-            get { return _numValue_4; }
-            set
-            {
-                _numValue_4 = value;
-                txtNum_4.Text = value.ToString();
-            }
-        }
-
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
+             tileLabel.Text = "30";
+            Random random = new Random();
+            var blocks = plus_panel.Children.OfType<TextBlock>().ToList().
+                Concat(minus_panel.Children.OfType<TextBlock>().ToList()).
+                Concat(mult_panel.Children.OfType<TextBlock>().ToList()).
+                Concat(divide_panel.Children.OfType<TextBlock>().ToList());
 
-        }
+            var blocks1 = mult_panel.Children.OfType<TextBlock>().ToList();
 
-        private void cmdUp_1_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_1++;
-        }
-
-        private void cmdDown_1_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_1--;
-        }
-
-        private void cmdUp_2_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_2++;
-        }
-
-        private void cmdDown_2_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_2--;
-        }
-
-        private void cmdUp_3_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_3++;
-        }
-
-        private void cmdDown_3_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_3--;
-        }
-
-        private void cmdUp_4_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_4++;
-        }
-
-        private void cmdDown_4_Click(object sender, RoutedEventArgs e)
-        {
-            NumValue_4--;
-        }
-
-        private void txtNum_1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txtNum_1 == null)
+            foreach (TextBlock item in blocks)
             {
-                return;
+                item.Text = random.Next(51).ToString();
+
             }
-
-            if (!int.TryParse(txtNum_1.Text, out _numValue_1))
-                txtNum_1.Text = _numValue_1.ToString();
-        }
-
-        private void txtNum_2_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txtNum_2 == null)
+            foreach (TextBlock item in blocks1)
             {
-                return;
+                item.Text = random.Next(10).ToString();
             }
+            var block = plus_panel.Children.OfType<TextBlock>().ToList();
+            result_pll = double.Parse(block[0].Text) + double.Parse(block[1].Text);
+            block = minus_panel.Children.OfType<TextBlock>().ToList();
+            result_minn = double.Parse(block[0].Text) + double.Parse(block[1].Text);
+            block = mult_panel.Children.OfType<TextBlock>().ToList();
+            result_ymnn = double.Parse(block[0].Text) * double.Parse(block[1].Text);
+            block = divide_panel.Children.OfType<TextBlock>().ToList();
+            result_dell = double.Parse(block[0].Text) / double.Parse(block[1].Text);
 
-            if (!int.TryParse(txtNum_2.Text, out _numValue_2))
-                txtNum_2.Text = _numValue_2.ToString();
+            timer.Start();
         }
-
-        private void txtNum_3_TextChanged(object sender, TextChangedEventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            if (txtNum_3 == null)
+            if (result_del.Text == result_dell.ToString() && result_raz.Text == result_minn.ToString() && result_ymn.Text == result_ymnn.ToString() && result_plus.Text == result_pll.ToString())
             {
-                return;
+                timer.Stop();
+                MessageBox.Show("ТЫ не ЛЕРУА МЕРЛЕН");
             }
-
-            if (!int.TryParse(txtNum_3.Text, out _numValue_3))
-                txtNum_3.Text = _numValue_3.ToString();
+            tileLabel.Text = (double.Parse(tileLabel.Text) - 1).ToString();
+            if (tileLabel.Text == "0")
+            {
+                MessageBox.Show("ТЫ ЛЕРУА МЕРЛЕН");
+                timer.Stop();
+            }
         }
 
-        private void txtNum_4_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txtNum_4 == null)
-            {
-                return;
-            }
-
-            if (!int.TryParse(txtNum_4.Text, out _numValue_4))
-                txtNum_4.Text = _numValue_4.ToString();
-        }
     }
 }

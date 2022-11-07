@@ -2,8 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        
-        
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
@@ -23,55 +21,39 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
         <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
             <Label Content="Time left" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Label Name="tileLabel" BorderBrush="Black" BorderThickness="2px" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Name="tileLabel" BorderBrush="Black" BorderThickness="2px" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="4" Orientation="Horizontal">
-            <Label x:Name="plusleftlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="-" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="plusrightlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="=" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Grid x:Name="sum"  Height="25" VerticalAlignment="Top" Width="50">
-                <TextBox x:Name="txtNum_1" x:FieldModifier="private" Text="0" TextChanged="txtNum_1_TextChanged" Margin="3,2,13,3" />
-                <Button x:Name="cmdUp_1" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▲" Width="10" Click="cmdUp_1_Click" Margin="33,2,1,13" />
-                <Button x:Name="cmdDown_1" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▼" Width="10" Click="cmdDown_1_Click" Margin="33,12,1,3" />
-            </Grid>
+        <StackPanel x:Name="plus_panel"  Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="+" FontSize="30"/>
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="=" FontSize="30"/>
+            <TextBox Text="0" FontSize="40" Width="150" x:Name="result_plus"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal">
-            <Label x:Name="munleftlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="+" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="munrightlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="=" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Grid x:Name="mun"  Height="25" VerticalAlignment="Top" Width="50">
-                <TextBox x:Name="txtNum_2" x:FieldModifier="private" Text="0" TextChanged="txtNum_2_TextChanged" Margin="3,2,13,3" />
-                <Button x:Name="cmdUp_2" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▲" Width="10" Click="cmdUp_2_Click" Margin="33,2,1,13" />
-                <Button x:Name="cmdDown_2" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▼" Width="10" Click="cmdDown_2_Click" Margin="33,12,1,3" />
-            </Grid>
+        <StackPanel x:Name="minus_panel" Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="-" FontSize="30"/>
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="=" FontSize="30"/>
+            <TextBox Text="0" FontSize="40" Width="150" x:Name="result_raz"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Orientation="Horizontal">
-            <Label x:Name="ymnleftlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="*" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="ymnrightlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="=" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Grid  x:Name="ymn" Height="25" VerticalAlignment="Top" Width="50">
-                <TextBox x:Name="txtNum_3" x:FieldModifier="private" Text="0" TextChanged="txtNum_3_TextChanged" Margin="3,2,13,3" />
-                <Button x:Name="cmdUp_3" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▲" Width="10" Click="cmdUp_3_Click" Margin="33,2,1,13" />
-                <Button x:Name="cmdDown_3" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▼" Width="10" Click="cmdDown_3_Click" Margin="33,12,1,3" />
-            </Grid>
+        <StackPanel x:Name="mult_panel" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="*" FontSize="30"/>
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="=" FontSize="30"/>
+            <TextBox Text="0" FontSize="40" Width="150" x:Name="result_ymn"/>
         </StackPanel>
-        <StackPanel x:Name="delen" Grid.Row="4" Grid.ColumnSpan="4" Orientation="Horizontal">
-            <Label x:Name="delenleftlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="/" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label x:Name="delenrightlabel" Content="?" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Label Content="=" Width="60" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Grid  Height="25" VerticalAlignment="Top" Width="50">
-                <TextBox x:Name="txtNum_4" x:FieldModifier="private" Text="0" TextChanged="txtNum_4_TextChanged" Margin="3,2,13,3" />
-                <Button x:Name="cmdUp_4" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▲" Width="10" Click="cmdUp_4_Click" Margin="33,2,1,13" />
-                <Button x:Name="cmdDown_4" x:FieldModifier="private" FontSize="10" Padding="0,-4,0,0" Content="▼" Width="10" Click="cmdDown_4_Click" Margin="33,12,1,3" />
-            </Grid>
+        <StackPanel x:Name="divide_panel" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content=":" FontSize="30"/>
+            <TextBlock Text="?" FontSize="40"/>
+            <Label Content="=" FontSize="30"/>
+            <TextBox Text="0" FontSize="40" Width="150" x:Name="result_del"/>
         </StackPanel>
         <Button x:Name="start" Grid.Column="4" Content="Start" Click="start_Click" TabIndex="1"/>
-
     </Grid>
 </Window>
